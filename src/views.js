@@ -11,17 +11,33 @@ function elemental(type, property, value) {
   return element;
 }
 
-function StartUp() {
-  const projectContainer = elemental('div', 'id', 'project-container');
-  const toDosContainer = elemental('div', 'id', 'todos-container');
-  const projectUl = elemental('ul', 'id', 'project-ul');
-  const toDosTable = elemental('table', 'id', 'todos-table');
-  mainDiv.appendChild(projectContainer).appendChild(projectUl);
-  mainDiv.appendChild(toDosContainer).appendChild(toDosTable);
+function renderTodosProject(projectName) {
+  const projectItems = JSON.parse(get(projectName));
 
-  renderProjectsList();
+  const toDosTable = document.getElementById('todos-table');
+  toDosTable.innerHTML = '';
+  projectItems.forEach((x, i) => {
+    if (i === 0) {
+      const tableTr = elemental('tr', 'class', 'table-row');
+      Object.keys(x).forEach((z) => {
+        const tableRowHeader = elemental('th', 'class', 'table-header');
+        tableRowHeader.appendChild(document.createTextNode(z));
+        tableTr.appendChild(tableRowHeader);
+      });
+      toDosTable.appendChild(tableTr);
+    }
+
+    const tableRow = elemental('tr', 'class', 'table-row');
+    Object.values(x).forEach((y) => {
+      const tableCell = elemental('td', 'class', 'table-cell');
+      tableCell.setAttribute('contenteditable', 'true');
+      tableCell.appendChild(document.createTextNode(y));
+      tableRow.appendChild(tableCell);
+    });
+
+    toDosTable.appendChild(tableRow);
+  });
 }
-
 
 function renderProjectsList() {
   const projectUl = document.getElementById('project-ul');
@@ -38,31 +54,15 @@ function renderProjectsList() {
   });
 }
 
-function renderTodosProject(projectName) {
-  const projectItems = JSON.parse(get(projectName));
+function StartUp() {
+  const projectContainer = elemental('div', 'id', 'project-container');
+  const toDosContainer = elemental('div', 'id', 'todos-container');
+  const projectUl = elemental('ul', 'id', 'project-ul');
+  const toDosTable = elemental('table', 'id', 'todos-table');
+  mainDiv.appendChild(projectContainer).appendChild(projectUl);
+  mainDiv.appendChild(toDosContainer).appendChild(toDosTable);
 
-  const toDosTable = document.getElementById('todos-table');
-  toDosTable.innerHTML = '';
-  projectItems.forEach((x, i) => {
-    if (i === 0) {
-      const tableTr = elemental('tr', 'class', 'table-row');
-      Object.keys(x).forEach((x) => {
-        const tableRowHeader = elemental('th', 'class', 'table-header');
-        tableRowHeader.appendChild(document.createTextNode(x));
-        tableTr.appendChild(tableRowHeader);
-      });
-      toDosTable.appendChild(tableTr);
-    }
-
-    const tableRow = elemental('tr', 'class', 'table-row');
-    Object.values(x).forEach((y) => {
-      const tableCell = elemental('td', 'class', 'table-cell');
-      tableCell.appendChild(document.createTextNode(y));
-      tableRow.appendChild(tableCell);
-    });
-
-    toDosTable.appendChild(tableRow);
-  });
+  renderProjectsList();
 }
 
 export default StartUp;
