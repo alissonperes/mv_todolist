@@ -3,4 +3,7 @@
   justify-content: space-evenly;
 }
 
-
+.editable td {
+  border: 1px solid black;
+  background-color: #d5d5d5;
+}

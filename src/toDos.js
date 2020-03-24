@@ -1,20 +1,26 @@
 const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const get = key => localStorage.getItem(key);
 
-const project = (projectTitle) => {
-  const title = projectTitle;
+const project = projectTitle => {
+  const projectName = projectTitle;
+  let notePos = 0;
   const notes = [];
   const getNotes = () => notes;
-  const addNote = (nTitle, description, dueDate, priority) => {
-    const newNote = note(nTitle, description, dueDate, priority);
+  const addNote = (title, description, dueDate, priority) => {
+    const newNote = note(title, description, dueDate, priority, notePos++);
     notes.push(newNote);
-    set(title, notes);
+    set(projectName, notes);
   };
 
-  return { title, addNote, getNotes };
+  return { projectName, addNote, getNotes };
 };
 
-const note = (nTitle, description, dueDate, priority) => ({
-  nTitle, description, dueDate, priority,
+const note = (title, description, dueDate, priority, position) => ({
+  title,
+  description,
+  dueDate,
+  priority,
+  position
 });
 
 export default project;
