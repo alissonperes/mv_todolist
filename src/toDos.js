@@ -1,6 +1,6 @@
 const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-const project = projectTitle => {
+const project = (projectTitle) => {
   const title = projectTitle;
   const notes = [];
   const getNotes = () => notes;
@@ -13,8 +13,8 @@ const project = projectTitle => {
   return { title, addNote, getNotes };
 };
 
-const note = (nTitle, description, dueDate, priority) => {
-  return { nTitle, description, dueDate, priority };
-};
+const note = (nTitle, description, dueDate, priority) => ({
+  nTitle, description, dueDate, priority,
+});
 
 export default project;
