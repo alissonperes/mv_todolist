@@ -1,6 +1,4 @@
 const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-const get = key => localStorage.getItem(key);
-const remove = key => localStorage.removeItem(key);
 
 const project = projectTitle => {
   const title = projectTitle;
