@@ -13,4 +13,12 @@ module.exports = {
   watchOptions: {
     aggregateTimeout: 100,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 };

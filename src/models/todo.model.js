@@ -1,4 +1,4 @@
-class Todos {
+class TodosModel {
   constructor(name, description = '', dueDate = null, priority = 1) {
     this.name = name;
     this.description = description;
@@ -8,4 +8,4 @@ class Todos {
   }
 }
 
-export default Todos;
+export default TodosModel;
