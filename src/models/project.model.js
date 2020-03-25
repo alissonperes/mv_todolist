@@ -1,4 +1,4 @@
-class Projects {
+class ProjectModel {
   constructor(name, todos = []) {
     this.name = name;
     this.todos = todos;
@@ -6,4 +6,4 @@ class Projects {
   }
 }
 
-export default Projects;
+export default ProjectModel;
