@@ -38,6 +38,11 @@ class ProjectController {
     project.todos = project.todos.filter((t) => t.id !== todoID);
     this.setStorage();
   }
+
+  listTodos(projectId) {
+    const { todos } = this.projects.find((p) => p.id === projectId);
+    return todos;
+  }
 }
 
 export default ProjectController;

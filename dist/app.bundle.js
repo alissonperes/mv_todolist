@@ -185,7 +185,55 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n\n//# sourceURL=webpack:///./src/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _views_project__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/project */ \"./src/views/project.js\");\n/* harmony import */ var _controllers_project_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controllers/project.controller */ \"./src/controllers/project.controller.js\");\n\n\n\n\n\nconst defaultProject = Object(_controllers_project_controller__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\nObject(_views_project__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(defaultProject);\n\n\n//# sourceURL=webpack:///./src/app.js?");
+
+/***/ }),
+
+/***/ "./src/controllers/project.controller.js":
+/*!***********************************************!*\
+  !*** ./src/controllers/project.controller.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/project */ \"./src/models/project.js\");\n/* harmony import */ var _models_todo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/todo */ \"./src/models/todo.js\");\n\n\n\nclass ProjectController {\n  constructor() {\n    this.projects = JSON.parse(localStorage.getItem('projects'))\n    || Object(_models_project__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Default');\n  }\n\n  setStorage() {\n    localStorage.setItem('projects', JSON.stringify(this.projects));\n  }\n\n  addProject(name) {\n    const newProject = Object(_models_project__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(name);\n    this.projects.push(newProject);\n    this.setStorage();\n  }\n\n  addTodo(projectId, name) {\n    const todo = Object(_models_todo__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(name);\n    this.projects.find((p) => p.id === projectId).todos.push(todo);\n    this.setStorage();\n  }\n\n  editTodo(projectId, todoID, name, description, dueDate, priority) {\n    const project = this.projects.find((p) => p.id === projectId);\n    const todo = project.todos.find((t) => t.id === todoID);\n    todo.name = name;\n    todo.dueDate = dueDate;\n    todo.description = description;\n    todo.priority = priority;\n    this.setStorage();\n  }\n\n  removeTodo(projectId, todoID) {\n    const project = this.projects.find((p) => p.id === projectId);\n    project.todos = project.todos.filter((t) => t.id !== todoID);\n    this.setStorage();\n  }\n\n  listTodos(projectId) {\n    const { todos } = this.projects.find((p) => p.id === projectId);\n    return todos;\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ProjectController);\n\n\n//# sourceURL=webpack:///./src/controllers/project.controller.js?");
+
+/***/ }),
+
+/***/ "./src/models/project.js":
+/*!*******************************!*\
+  !*** ./src/models/project.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass ProjectModel {\n  constructor(name, todos = []) {\n    this.name = name;\n    this.todos = todos;\n    this.id = new Date().getTime();\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ProjectModel);\n\n\n//# sourceURL=webpack:///./src/models/project.js?");
+
+/***/ }),
+
+/***/ "./src/models/todo.js":
+/*!****************************!*\
+  !*** ./src/models/todo.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass TodosModel {\n  constructor(name, description = '', dueDate = null, priority = 1) {\n    this.name = name;\n    this.description = description;\n    this.dueDate = dueDate;\n    this.priority = priority;\n    this.id = new Date().getTime();\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (TodosModel);\n\n\n//# sourceURL=webpack:///./src/models/todo.js?");
+
+/***/ }),
+
+/***/ "./src/views/project.js":
+/*!******************************!*\
+  !*** ./src/views/project.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction renderProjects(projects) {\n\n  let pageHTML = `\n      <div class=\"col-md-4 col-sm-12 mt-3\">\n        <div class=\"input-group mb-3\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"New project name\" aria-label=\"Project name\" aria-describedby=\"basic-addon1\" required=\"\">\n          <button type=\"button\" class=\"btn btn-primary\">Create</button>\n        </div>\n        <div class=\"list-group\">`;\n  projects.forEach((p) => {\n    pageHTML += `<a id=\"${p.id}\" onclick=\"todoView(${p.id})\" class=\"list-group-item list-group-item-action\"> ${p.name} </a>`;\n  });\n\n  pageHTML += '</div></div>';\n\n  return pageHTML;\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (renderProjects);\n\n\n//# sourceURL=webpack:///./src/views/project.js?");
 
 /***/ })
 
