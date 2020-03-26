@@ -16,7 +16,7 @@
     },
     "rules": {},
     "ignorePatterns": [
-        "dist/main.js",
+        "dist/app.bundle.js",
         "node_modules/"
     ]
 }

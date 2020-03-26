@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDo List</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
+class ProjectView {
+  static html(projects) {
+    return `
+                      <div class="row">
         <div class="col-4">
           <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">
@@ -25,8 +19,8 @@
           </div>
         </div>
       </div>
-      `
-    </div>
-    <script src="app.bundle.js"></script>
-  </body>
-</html>
+    `;
+  }
+}
+
+export default TodoView;

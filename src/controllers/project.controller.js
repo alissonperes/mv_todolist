@@ -1,5 +1,5 @@
-import ProjectModel from '../models/project.model';
-import TodosModel from '../models/todo.model';
+import ProjectModel from '../models/project';
+import TodosModel from '../models/todo';
 
 class ProjectController {
   constructor() {
