@@ -16,18 +16,19 @@ class ProjectController {
 
     this.projects.push(newProject);
     this.setStorage();
+    return newProject;
   }
 
   addTodo(projectId, name) {
     const todo = new TodosModel(name);
-    this.projects.find((p) => p.id === projectId).todos.push(todo);
+    this.projects.find((p) => p.id == projectId).todos.push(todo);
     this.setStorage();
     todoView(this.listTodos(projectId));
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {
-    const project = this.projects.find((p) => p.id === projectId);
-    const todo = project.todos.find((t) => t.id === todoID);
+    const project = this.projects.find((p) => p.id == projectId);
+    const todo = project.todos.find((t) => t.id == todoID);
     todo.name = name;
     todo.dueDate = dueDate;
     todo.description = description;
@@ -36,18 +37,18 @@ class ProjectController {
   }
 
   removeTodo(projectId, todoID) {
-    const project = this.projects.find((p) => p.id === projectId);
+    const project = this.projects.find((p) => p.id == projectId);
     project.todos = project.todos.filter((t) => t.id !== todoID);
     this.setStorage();
   }
 
   listTodos(projectId) {
-    const { todos } = this.projects.find((p) => p.id === projectId);
+    const { todos } = this.projects.find((p) => p.id == projectId);
     return todos;
   }
 
   getProject(projectId) {
-    return this.projects.find((p) => p.id === projectId);
+    return this.projects.find((p) => p.id == projectId);
   }
 }
 

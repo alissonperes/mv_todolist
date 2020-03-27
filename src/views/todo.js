@@ -1,8 +1,6 @@
 function todoView(todos) {
-  console.log('todoView');
-  // const todos = ProjectController.listTodos(projectId);
   let pageHtml = `
-  <div class="col-md-8 col-sm-12 d-flex-column mt-3">
+  <div id="todos-div" class="col-md-8 col-sm-12 d-flex-column mt-3">
     <div class="row justify-content-end mb-3">
       <!-- Button trigger modal -->
       <button
@@ -84,7 +82,6 @@ function todoView(todos) {
     </div>
     <div class="row">`;
   if (todos.length > 0) {
-    console.log('todo != []', todos);
     todos.forEach((todo) => {
       let priorityCheck = '';
       switch (todo.priority.toLowerCase()) {
@@ -109,8 +106,8 @@ function todoView(todos) {
       <h5 class="card-title">${todo.name}</h5>
       </div>
       <ul class="list-group list-group-flush">
-      <li class="list-group-item">${todo.description}</li>
-      <li class="list-group-item">${todo.dueDate}in</li>
+      <li class="list-group-item">${todo.description || 'No description'}</li>
+      <li class="list-group-item">${todo.dueDate || 'no due date'}</li>
       <li class="list-group-item">
       <div role="alert" class="alert ${priorityCheck} m-0"> Priority ${todo.priority}</div></li>
       </ul>
@@ -121,7 +118,6 @@ function todoView(todos) {
       </div>`;
     });
   }
-
   pageHtml += '</div></div>';
 
   return pageHtml;

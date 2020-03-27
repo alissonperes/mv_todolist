@@ -1,5 +1,5 @@
 class TodosModel {
-  constructor(name, description = '', dueDate = null, priority = 1) {
+  constructor(name, description = null, dueDate = null, priority = 'Low') {
     this.name = name;
     this.description = description;
     this.dueDate = dueDate;
