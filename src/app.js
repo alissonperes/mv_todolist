@@ -25,13 +25,16 @@ mainTodosDiv.id = 'todos-div';
 divContainer.appendChild(containerRow);
 app.appendChild(divContainer);
 containerRow.innerHTML = renderProjects(projects);
-containerRow.innerHTML += todoView(defaultProject.todos);
+containerRow.innerHTML += todoView(defaultProject.id, defaultProject.todos);
 
 const projectsAnchor = document.querySelectorAll('#projects-div a');
 projectsAnchor.forEach((p) => {
   p.onclick = function() {
     const todosDiv = document.getElementById('todos-div');
-    todosDiv.outerHTML = todoView(allProjects.getProject(p.id).todos);
+    todosDiv.outerHTML = todoView(
+      allProjects.getProject(p.id).id,
+      allProjects.getProject(p.id).todos
+    );
   };
 });
 
@@ -51,3 +54,14 @@ btnAddProject.onclick = function() {
   inputProjectName.value = '';
   inputProjectName.focus();
 };
+
+const btnAddTodo = document.getElementById('create-todo-btn');
+btnAddTodo.onclick = function() {
+  const projectId = this.parentElement.id;
+  const ipts = document.querySelectorAll(
+    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select'
+  );
+  const values = Array.from(ipts).map((x) => x.value);
+  const addedTodo = allProjects.addTodo(projectId, ...values);
+};
+const createTodoModalForm = btnAddTodo.parentElement;

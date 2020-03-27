@@ -4,7 +4,9 @@ import todoView from '../views/todo';
 
 class ProjectController {
   constructor() {
-    this.projects = JSON.parse(localStorage.getItem('projects')) || [new ProjectModel('Default')];
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [
+      new ProjectModel('Default'),
+    ];
   }
 
   setStorage() {
@@ -19,11 +21,11 @@ class ProjectController {
     return newProject;
   }
 
-  addTodo(projectId, name) {
-    const todo = new TodosModel(name);
+  addTodo(projectId, name, description, dueDate, priority) {
+    const todo = new TodosModel(name, description, dueDate, priority);
     this.projects.find((p) => p.id == projectId).todos.push(todo);
     this.setStorage();
-    todoView(this.listTodos(projectId));
+    todoView(projectId, this.listTodos(projectId));
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {

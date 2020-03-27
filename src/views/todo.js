@@ -1,4 +1,4 @@
-function todoView(todos) {
+function todoView(projectId, todos) {
   let pageHtml = `
   <div id="todos-div" class="col-md-8 col-sm-12 d-flex-column mt-3">
     <div class="row justify-content-end mb-3">
@@ -30,7 +30,7 @@ function todoView(todos) {
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="${projectId}">
                 <div class="form-group">
                   <label>Name</label>
                   <input
@@ -60,15 +60,15 @@ function todoView(todos) {
                 </div>
                 <div class="form-group">
                   <select class="custom-select" required>
-                    <option value="0">Low</option>
-                    <option value="1">Medium</option>
-                    <option value="2">High</option>
-                    <option value="3">Urgent</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
                   </select>
                   <div class="invalid-feedback">Example invalid custom select feedback</div>
                 </div>
 
-                <button type="button" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-primary" id="create-todo-btn">Create</button>
               </form>
             </div>
             <div class="modal-footer">
