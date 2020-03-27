@@ -62,6 +62,9 @@ btnAddTodo.onclick = function() {
     '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select'
   );
   const values = Array.from(ipts).map((x) => x.value);
-  const addedTodo = allProjects.addTodo(projectId, ...values);
+  allProjects.addTodo(projectId, ...values);
+  document.getElementById('todos-div').outerHTML = todoView(
+    projectId,
+    allProjects.listTodos(projectId)
+  );
 };
-const createTodoModalForm = btnAddTodo.parentElement;

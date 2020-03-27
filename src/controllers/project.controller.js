@@ -25,7 +25,7 @@ class ProjectController {
     const todo = new TodosModel(name, description, dueDate, priority);
     this.projects.find((p) => p.id == projectId).todos.push(todo);
     this.setStorage();
-    todoView(projectId, this.listTodos(projectId));
+    // todoView(projectId, this.listTodos(projectId));
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {

@@ -68,7 +68,7 @@ function todoView(projectId, todos) {
                   <div class="invalid-feedback">Example invalid custom select feedback</div>
                 </div>
 
-                <button type="button" class="btn btn-primary" id="create-todo-btn">Create</button>
+                <button type="button" class="btn btn-primary" id="create-todo-btn" data-dismiss="modal">Create</button>
               </form>
             </div>
             <div class="modal-footer">
