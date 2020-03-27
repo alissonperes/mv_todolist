@@ -1,10 +1,10 @@
 import ProjectModel from '../models/project';
 import TodosModel from '../models/todo';
+import todoView from '../views/todo';
 
 class ProjectController {
   constructor() {
-    this.projects = JSON.parse(localStorage.getItem('projects'))
-    || ProjectModel('Default');
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [new ProjectModel('Default')];
   }
 
   setStorage() {
@@ -12,15 +12,17 @@ class ProjectController {
   }
 
   addProject(name) {
-    const newProject = ProjectModel(name);
+    const newProject = new ProjectModel(name);
+
     this.projects.push(newProject);
     this.setStorage();
   }
 
   addTodo(projectId, name) {
-    const todo = TodosModel(name);
+    const todo = new TodosModel(name);
     this.projects.find((p) => p.id === projectId).todos.push(todo);
     this.setStorage();
+    todoView(this.listTodos(projectId));
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {
@@ -42,6 +44,10 @@ class ProjectController {
   listTodos(projectId) {
     const { todos } = this.projects.find((p) => p.id === projectId);
     return todos;
+  }
+
+  getProject(projectId) {
+    return this.projects.find((p) => p.id === projectId);
   }
 }
 

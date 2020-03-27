@@ -1,8 +1,12 @@
 class ProjectModel {
-  constructor(name, todos = []) {
+  constructor(name) {
     this.name = name;
-    this.todos = todos;
+    this.todos = [];
     this.id = new Date().getTime();
+  }
+
+  getTodos() {
+    return this.todos;
   }
 }
 

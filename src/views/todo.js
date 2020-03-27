@@ -1,7 +1,6 @@
-import ProjectController from '../controllers/project.controller';
-
-function todoView(projectId) {
-  const todos = ProjectController.listTodos(projectId);
+function todoView(todos) {
+  console.log('todoView');
+  // const todos = ProjectController.listTodos(projectId);
   let pageHtml = `
   <div class="col-md-8 col-sm-12 d-flex-column mt-3">
     <div class="row justify-content-end mb-3">
@@ -84,42 +83,44 @@ function todoView(projectId) {
       </div>
     </div>
     <div class="row">`;
+  if (todos.length > 0) {
+    console.log('todo != []', todos);
+    todos.forEach((todo) => {
+      let priorityCheck = '';
+      switch (todo.priority.toLowerCase()) {
+        case 'low':
+          priorityCheck = 'alert-primary';
+          break;
+        case 'medium':
+          priorityCheck = 'alert-success';
+          break;
+        case 'high':
+          priorityCheck = 'alert-dark';
+          break;
+        case 'urgent':
+          priorityCheck = 'alert-danger';
+          break;
+        default:
+          break;
+      }
 
-  todos.forEach((todo) => {
-    let priorityCheck = '';
-    switch (todo.priority.toLowerCase()) {
-      case 'low':
-        priorityCheck = 'alert-primary';
-        break;
-      case 'medium':
-        priorityCheck = 'alert-success';
-        break;
-      case 'high':
-        priorityCheck = 'alert-dark';
-        break;
-      case 'urgent':
-        priorityCheck = 'alert-danger';
-        break;
-      default:
-        break;
-    }
-
-    pageHtml += ` <div class="card col-lg-4 col-md-6 col-12" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">${todo.name}</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">${todo.description}</li>
-                <li class="list-group-item">${todo.dueDate}in</li>
-                <li class="list-group-item">
-                <div role="alert" class="alert ${priorityCheck} m-0"> Priority ${todo.priority}</div></li>
-              </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">Save</a>
-                <a href="#" class="card-link">Edit</a>
-              </div>
-            </div>`;
-  });
+      pageHtml += ` <div class="card col-lg-4 col-md-6 col-12" style="width: 18rem;">
+      <div class="card-body">
+      <h5 class="card-title">${todo.name}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">${todo.description}</li>
+      <li class="list-group-item">${todo.dueDate}in</li>
+      <li class="list-group-item">
+      <div role="alert" class="alert ${priorityCheck} m-0"> Priority ${todo.priority}</div></li>
+      </ul>
+      <div class="card-body">
+      <a href="#" class="card-link">Save</a>
+      <a href="#" class="card-link">Edit</a>
+      </div>
+      </div>`;
+    });
+  }
 
   pageHtml += '</div></div>';
 
