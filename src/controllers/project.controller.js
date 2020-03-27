@@ -1,6 +1,5 @@
 import ProjectModel from '../models/project';
 import TodosModel from '../models/todo';
-import todoView from '../views/todo';
 
 class ProjectController {
   constructor() {
@@ -25,7 +24,6 @@ class ProjectController {
     const todo = new TodosModel(name, description, dueDate, priority);
     this.projects.find((p) => p.id == projectId).todos.push(todo);
     this.setStorage();
-    // todoView(projectId, this.listTodos(projectId));
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {

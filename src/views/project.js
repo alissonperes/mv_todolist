@@ -1,14 +1,21 @@
-import todoView from './todo';
+import './todo';
+import { renderTodos } from './todo';
 
-function renderProjects(node, projects) {
-  projects.forEach((p) => {
-    const anchorProject = document.createElement('a');
-    anchorProject.appendChild(document.createTextNode(p.name));
-    anchorProject.setAttribute('id', p.id);
-    anchorProject.setAttribute('class', 'list-group-item list-group-item-action');
-
-    node.appendChild(anchorProject);
-  });
+function appendProject(node, project) {
+  const anchorProject = document.createElement('a');
+  anchorProject.appendChild(document.createTextNode(project.name));
+  anchorProject.setAttribute('id', project.id);
+  anchorProject.setAttribute('class', 'list-group-item list-group-item-action');
+  anchorProject.onclick = function () {
+    const todoCont = document.getElementById('todos-div');
+    console.log(todoCont);
+    renderTodos(todoCont, project.todos);
+  };
+  node.appendChild(anchorProject);
 }
 
-export default renderProjects;
+function renderProjects(node, projects) {
+  projects.forEach((p) => appendProject(node, p));
+}
+
+export { renderProjects, appendProject };

@@ -10,7 +10,7 @@ const loadMainContent = () => {
   initialContent += `<div class="container pt-3">
   <div class="row">
   <div class="col-md-4 col-sm-12 mt-3" id="projects-div">
-  <div class="input-group mb-3">
+  <div class="input-group mb-3" id="project-container">
   <input type="text" id="new-project-input" class="form-control" placeholder="New project name" aria-label="Project name" aria-describedby="basic-addon1" required="">
   <button type="button" class="btn btn-primary" id="btn-add-project">Create</button>
   </div>
@@ -34,7 +34,7 @@ const loadMainContent = () => {
   </button>
   </div>
   <div class="modal-body">
-  <form id="1585340629509">
+  <form>
   <div class="form-group">
   <label>Name</label>
   <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
