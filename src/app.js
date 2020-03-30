@@ -2,7 +2,6 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as projectView from './views/project';
 import * as todoView from './views/todo';
-// import ProjectModel from './models/project';
 import loadMainContent from './views/index';
 import ProjectController from './controllers/project.controller';
 
@@ -12,8 +11,6 @@ const allProjects = new ProjectController();
 allProjects.setStorage();
 
 const defaultProject = allProjects.projects[0];
-
-const projects = JSON.parse(localStorage.getItem('projects'));
 
 const mainProjectsDiv = document.getElementById('projects-div');
 const mainTodosDiv = document.getElementById('todos-div');

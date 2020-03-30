@@ -2,19 +2,18 @@ import ProjectController from '../controllers/project.controller';
 
 function todoCreator(todo) {
   let priorityCheck = '';
-  console.log(todo);
   switch (todo.priority.toLowerCase()) {
     case 'low':
-      priorityCheck = 'alert-primary';
+      priorityCheck = 'primary';
       break;
     case 'medium':
-      priorityCheck = 'alert-success';
+      priorityCheck = 'success';
       break;
     case 'high':
-      priorityCheck = 'alert-dark';
+      priorityCheck = 'dark';
       break;
     case 'urgent':
-      priorityCheck = 'alert-danger';
+      priorityCheck = 'danger';
       break;
     default:
       break;
@@ -26,8 +25,14 @@ function todoCreator(todo) {
   cardBody.className = 'card-body';
   const cardTitle = document.createElement('li');
   cardTitle.className = 'list-group-item';
-  cardTitle.appendChild(document.createTextNode(todo.name));
-  // cardBody.appendChild(cardTitle);
+
+  const collapseButton = document.createElement('button');
+  collapseButton.setAttribute('data-toggle', 'collapse');
+  collapseButton.setAttribute('data-target', `#collapse${todo.id}`);
+  collapseButton.className = `btn btn-${priorityCheck}`;
+  collapseButton.appendChild(document.createTextNode(todo.name));
+  cardTitle.appendChild(collapseButton);
+
   mainCardDiv.appendChild(cardBody);
 
   const ulDiv = document.createElement('div');
@@ -35,17 +40,18 @@ function todoCreator(todo) {
   const listGroup = document.createElement('ul');
   listGroup.className = 'list-group list-group-flush';
   const listGroupItemDesc = document.createElement('li');
-  listGroupItemDesc.className = 'list-group-item';
+  listGroupItemDesc.className = 'list-group-item collapse';
+  listGroupItemDesc.id = `collapse${todo.id}`;
+
   const listGroupItemDate = document.createElement('li');
   listGroupItemDate.className = 'list-group-item';
   const listGroupItemPrio = document.createElement('div');
   listGroupItemPrio.setAttribute('role', 'alert');
-  listGroupItemPrio.className = `alert ${priorityCheck}`;
+  listGroupItemPrio.className = `alert collapse alert-${priorityCheck}`;
+  listGroupItemPrio.id = `collapse${todo.id}`;
   const listGroupItemPrioLi = document.createElement('li');
   listGroupItemPrioLi.className = 'list-group-item';
 
-  // const listGroupButons = document.createElement('li');
-  // listGroupButons.className = 'list-group-item';
   const buttonGroup = document.createElement('div');
   buttonGroup.className = 'btn-group w-100';
   buttonGroup.setAttribute('role', 'group');
@@ -60,7 +66,6 @@ function todoCreator(todo) {
 
   buttonGroup.appendChild(editButton);
   buttonGroup.appendChild(deleteButton);
-  // listGroupButons.appendChild(buttonGroup);
 
   listGroupItemDesc.appendChild(document.createTextNode(todo.description));
   listGroupItemDate.appendChild(document.createTextNode(todo.dueDate));
@@ -103,10 +108,18 @@ function todoCreator(todo) {
   </div>
   <div class="form-group">
   <select class="custom-select" required="">
-  <option value="Low" ${todo.priority == 'Low' ? 'selected = selected' : ''}>Low</option>
-  <option value="Medium" ${todo.priority == 'Medium' ? 'selected = selected' : ''}>Medium</option>
-  <option value="High" ${todo.priority == 'High' ? 'selected = selected' : ''}>High</option>
-  <option value="Urgent" ${todo.priority == 'Urgent' ? 'selected = selected' : ''}>Urgent</option>
+  <option value="Low" ${
+    todo.priority == 'Low' ? 'selected = selected' : ''
+  }>Low</option>
+  <option value="Medium" ${
+    todo.priority == 'Medium' ? 'selected = selected' : ''
+  }>Medium</option>
+  <option value="High" ${
+    todo.priority == 'High' ? 'selected = selected' : ''
+  }>High</option>
+  <option value="Urgent" ${
+    todo.priority == 'Urgent' ? 'selected = selected' : ''
+  }>Urgent</option>
   </select>
   <div class="invalid-feedback">Example invalid custom select feedback</div>
   </div>
@@ -115,10 +128,14 @@ function todoCreator(todo) {
       `;
     } else {
       const ipts = document.querySelectorAll(
-        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
+        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select'
       );
       const values = Array.from(ipts).map((x) => x.value);
-      const editedTodo = new ProjectController().editTodo(todo.parentId, todo.id, ...values);
+      const editedTodo = new ProjectController().editTodo(
+        todo.parentId,
+        todo.id,
+        ...values
+      );
       const removeTodo = document.getElementById(todo.id);
       removeTodo.parentElement.removeChild(removeTodo);
       // eslint-disable-next-line
