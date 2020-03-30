@@ -17,6 +17,7 @@ This project builds a browser based ToDo list. You can check the complete descri
 - Alisson Peres 
   - [GitHub](https://github.com/alissonperes/)
   - [Linkedin](https://www.linkedin.com/in/alissonperes)
+  - [Web Page](https://alissonperes.com)
 
 ## Getting started
 
