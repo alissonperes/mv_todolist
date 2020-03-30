@@ -19,8 +19,8 @@ const loadMainContent = () => {
   <div  class="col-md-8 col-sm-12 d-flex-column mt-3">
   <div class="row justify-content-end mb-3">
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Create new todo
+  <button type="button" id="trigger-modal"class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Create todo for Default
   </button>
 
   <!-- Modal -->
@@ -37,18 +37,18 @@ const loadMainContent = () => {
   <form id="create-todo-form">
   <div class="form-group">
   <label>Name</label>
-  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <input type="text" class="form-control" required>
   </div>
   <div class="form-group">
   <label>Description</label>
-  <textarea type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
+  <textarea type="" class="form-control" required></textarea>
   </div>
   <div class="form-group">
   <label>Due date</label>
-  <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <input type="date" class="form-control" required >
   </div>
   <div class="form-group">
-  <select class="custom-select" required="">
+  <select class="custom-select" required>
   <option value="Low">Low</option>
   <option value="Medium">Medium</option>
   <option value="High">High</option>
@@ -61,7 +61,7 @@ const loadMainContent = () => {
   </form>
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+  <button id="dismiss-changes" type="button" class="btn btn-secondary" data-dismiss="modal">
   Dismiss changes
   </button>
   </div>
