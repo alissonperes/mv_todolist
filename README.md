@@ -12,8 +12,11 @@ This project builds a browser based ToDo list. You can check the complete descri
 
 ## Authors
 
-- Eduardo Gutierrez https://github.com/fedgut/
-- Alisson Peres https://github.com/alissonperes/
+- Eduardo Gutierrez 
+  - [GitHub](https://github.com/fedgut/)
+- Alisson Peres 
+  - [GitHub](https://github.com/alissonperes/)
+  - [Linkedin](https://www.linkedin.com/in/alissonperes)
 
 ## Getting started
 
