@@ -12,7 +12,6 @@ const allProjects = new ProjectController();
 allProjects.setStorage();
 
 const defaultProject = allProjects.projects[0];
-// allProjects.addTodo(defaultProject.id, 'First Todo');
 
 const projects = JSON.parse(localStorage.getItem('projects'));
 
@@ -21,10 +20,11 @@ const mainTodosDiv = document.getElementById('todos-div');
 
 projectView.renderProjects(mainProjectsDiv, allProjects.projects);
 todoView.renderTodos(mainTodosDiv, defaultProject.todos);
+document.getElementById('create-todo-form').classList = defaultProject.id;
 
 const btnAddProject = document.getElementById('btn-add-project');
 const inputProjectName = document.getElementById('new-project-input');
-btnAddProject.onclick = function() {
+btnAddProject.onclick = function () {
   if (inputProjectName.checkValidity()) {
     const addedProject = allProjects.addProject(inputProjectName.value);
     projectView.appendProject(mainProjectsDiv, addedProject);
@@ -32,17 +32,16 @@ btnAddProject.onclick = function() {
   inputProjectName.value = '';
   inputProjectName.focus();
 };
-//
-// const btnAddTodo = document.getElementById('create-todo-btn');
-// btnAddTodo.onclick = function() {
-//   const projectId = this.parentElement.id;
-//   const ipts = document.querySelectorAll(
-//     '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
-//   );
-//   const values = Array.from(ipts).map((x) => x.value);
-//   allProjects.addTodo(projectId, ...values);
-//   document.getElementById('todos-div').outerHTML = todoView(
-//     projectId,
-//     allProjects.listTodos(projectId),
-//   );
-// };
+
+const btnAddTodo = document.getElementById('create-todo-btn');
+btnAddTodo.onclick = function() {
+  const projectId = this.parentElement.className;
+  console.log(projectId);
+  const ipts = document.querySelectorAll(
+    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
+  );
+  const values = Array.from(ipts).map((x) => x.value);
+  const targetTodo = allProjects.addTodo(projectId, ...values);
+  console.log(...values);
+  todoView.appendTodo(mainTodosDiv, targetTodo);
+};

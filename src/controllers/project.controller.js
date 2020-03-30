@@ -21,9 +21,10 @@ class ProjectController {
   }
 
   addTodo(projectId, name, description, dueDate, priority) {
-    const todo = new TodosModel(name, description, dueDate, priority);
+    const todo = new TodosModel(name, description, dueDate, priority, projectId);
     this.projects.find((p) => p.id == projectId).todos.push(todo);
     this.setStorage();
+    return todo;
   }
 
   editTodo(projectId, todoID, name, description, dueDate, priority) {
@@ -38,7 +39,7 @@ class ProjectController {
 
   removeTodo(projectId, todoID) {
     const project = this.projects.find((p) => p.id == projectId);
-    project.todos = project.todos.filter((t) => t.id !== todoID);
+    project.todos = project.todos.filter((t) => t.id != todoID);
     this.setStorage();
   }
 

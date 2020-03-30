@@ -1,5 +1,8 @@
+import ProjectController from '../controllers/project.controller';
+
 function todoCreator(todo) {
   let priorityCheck = '';
+  console.log(todo);
   switch (todo.priority.toLowerCase()) {
     case 'low':
       priorityCheck = 'alert-primary';
@@ -18,6 +21,7 @@ function todoCreator(todo) {
   }
   const mainCardDiv = document.createElement('div');
   mainCardDiv.className = 'card col-lg-4 col-md-6 col-12';
+  mainCardDiv.id = todo.id;
   const cardBody = document.createElement('div');
   cardBody.className = 'card-body';
   const cardTitle = document.createElement('h5');
@@ -37,6 +41,29 @@ function todoCreator(todo) {
   const listGroupItemPrioLi = document.createElement('li');
   listGroupItemPrioLi.className = 'list-group-item';
 
+  const listGroupButons = document.createElement('li');
+  listGroupButons.className = 'list-group-item';
+  const buttonGroup = document.createElement('div');
+  buttonGroup.className = 'btn-group w-100';
+  buttonGroup.setAttribute('role', 'group');
+  const editButton = document.createElement('button');
+  const deleteButton = document.createElement('button');
+  editButton.className = 'btn btn-secondary';
+  deleteButton.className = 'btn btn-secondary';
+  editButton.setAttribute('type', 'button');
+  deleteButton.setAttribute('type', 'button');
+  editButton.appendChild(document.createTextNode('Edit'));
+  deleteButton.appendChild(document.createTextNode('Delete'));
+  editButton.onclick = function() { };
+  deleteButton.onclick = function () {
+    new ProjectController().removeTodo(todo.parentId, todo.id);
+    mainCardDiv.parentElement.removeChild(mainCardDiv);
+  };
+
+  buttonGroup.appendChild(editButton);
+  buttonGroup.appendChild(deleteButton);
+  listGroupButons.appendChild(buttonGroup);
+
   listGroupItemDesc.appendChild(document.createTextNode(todo.description));
   listGroupItemDate.appendChild(document.createTextNode(todo.dueDate));
   listGroupItemPrio.appendChild(document.createTextNode(todo.priority));
@@ -46,6 +73,7 @@ function todoCreator(todo) {
   listGroup.appendChild(listGroupItemDesc);
   listGroup.appendChild(listGroupItemDate);
   listGroup.appendChild(listGroupItemPrioLi);
+  listGroup.appendChild(listGroupButons);
   mainCardDiv.appendChild(listGroup);
 
   return mainCardDiv;

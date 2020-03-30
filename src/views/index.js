@@ -34,7 +34,7 @@ const loadMainContent = () => {
   </button>
   </div>
   <div class="modal-body">
-  <form>
+  <form id="create-todo-form">
   <div class="form-group">
   <label>Name</label>
   <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
