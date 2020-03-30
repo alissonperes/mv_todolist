@@ -24,11 +24,14 @@ function todoCreator(todo) {
   mainCardDiv.id = todo.id;
   const cardBody = document.createElement('div');
   cardBody.className = 'card-body';
-  const cardTitle = document.createElement('h5');
+  const cardTitle = document.createElement('li');
+  cardTitle.className = 'list-group-item';
   cardTitle.appendChild(document.createTextNode(todo.name));
-  cardBody.appendChild(cardTitle);
+  // cardBody.appendChild(cardTitle);
   mainCardDiv.appendChild(cardBody);
 
+  const ulDiv = document.createElement('div');
+  ulDiv.className = 'card-ul';
   const listGroup = document.createElement('ul');
   listGroup.className = 'list-group list-group-flush';
   const listGroupItemDesc = document.createElement('li');
@@ -41,8 +44,8 @@ function todoCreator(todo) {
   const listGroupItemPrioLi = document.createElement('li');
   listGroupItemPrioLi.className = 'list-group-item';
 
-  const listGroupButons = document.createElement('li');
-  listGroupButons.className = 'list-group-item';
+  // const listGroupButons = document.createElement('li');
+  // listGroupButons.className = 'list-group-item';
   const buttonGroup = document.createElement('div');
   buttonGroup.className = 'btn-group w-100';
   buttonGroup.setAttribute('role', 'group');
@@ -54,15 +57,10 @@ function todoCreator(todo) {
   deleteButton.setAttribute('type', 'button');
   editButton.appendChild(document.createTextNode('Edit'));
   deleteButton.appendChild(document.createTextNode('Delete'));
-  editButton.onclick = function() { };
-  deleteButton.onclick = function () {
-    new ProjectController().removeTodo(todo.parentId, todo.id);
-    mainCardDiv.parentElement.removeChild(mainCardDiv);
-  };
 
   buttonGroup.appendChild(editButton);
   buttonGroup.appendChild(deleteButton);
-  listGroupButons.appendChild(buttonGroup);
+  // listGroupButons.appendChild(buttonGroup);
 
   listGroupItemDesc.appendChild(document.createTextNode(todo.description));
   listGroupItemDate.appendChild(document.createTextNode(todo.dueDate));
@@ -70,11 +68,70 @@ function todoCreator(todo) {
 
   listGroupItemPrioLi.appendChild(listGroupItemPrio);
 
+  listGroup.appendChild(cardTitle);
   listGroup.appendChild(listGroupItemDesc);
   listGroup.appendChild(listGroupItemDate);
   listGroup.appendChild(listGroupItemPrioLi);
-  listGroup.appendChild(listGroupButons);
-  mainCardDiv.appendChild(listGroup);
+
+  ulDiv.appendChild(listGroup);
+  cardBody.appendChild(ulDiv);
+  cardBody.appendChild(buttonGroup);
+  mainCardDiv.appendChild(cardBody);
+
+  editButton.onclick = (e) => {
+    if (e.target.innerText == 'Edit') {
+      e.target.innerText = 'Save';
+
+      ulDiv.innerHTML = `<form id="edit-todo-form">
+  <div class="form-group">
+  <label>Name</label>
+  <input type="text" value="${
+    todo.name
+  }" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+  <label>Description</label>
+  <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">${
+    todo.description
+  }</textarea>
+  </div>
+  <div class="form-group">
+  <label>Due date</label>
+  <input type="date" value="${
+    todo.dueDate
+  }" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+  <select class="custom-select" required="">
+  <option value="Low" ${todo.priority == 'Low' ? 'selected = selected' : ''}>Low</option>
+  <option value="Medium" ${todo.priority == 'Medium' ? 'selected = selected' : ''}>Medium</option>
+  <option value="High" ${todo.priority == 'High' ? 'selected = selected' : ''}>High</option>
+  <option value="Urgent" ${todo.priority == 'Urgent' ? 'selected = selected' : ''}>Urgent</option>
+  </select>
+  <div class="invalid-feedback">Example invalid custom select feedback</div>
+  </div>
+
+</form>
+      `;
+    } else {
+      const ipts = document.querySelectorAll(
+        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
+      );
+      const values = Array.from(ipts).map((x) => x.value);
+      const editedTodo = new ProjectController().editTodo(todo.parentId, todo.id, ...values);
+      const removeTodo = document.getElementById(todo.id);
+      removeTodo.parentElement.removeChild(removeTodo);
+      // eslint-disable-next-line
+      appendTodo(document.getElementById('todos-div'), editedTodo);
+
+      e.target.innerText = 'Edit';
+    }
+  };
+
+  deleteButton.onclick = function() {
+    new ProjectController().removeTodo(todo.parentId, todo.id);
+    mainCardDiv.parentElement.removeChild(mainCardDiv);
+  };
 
   return mainCardDiv;
 }

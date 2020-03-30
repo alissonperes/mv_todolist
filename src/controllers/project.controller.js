@@ -3,9 +3,7 @@ import TodosModel from '../models/todo';
 
 class ProjectController {
   constructor() {
-    this.projects = JSON.parse(localStorage.getItem('projects')) || [
-      new ProjectModel('Default'),
-    ];
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [new ProjectModel('Default')];
   }
 
   setStorage() {
@@ -35,6 +33,7 @@ class ProjectController {
     todo.description = description;
     todo.priority = priority;
     this.setStorage();
+    return todo;
   }
 
   removeTodo(projectId, todoID) {
