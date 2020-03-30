@@ -21,7 +21,7 @@ document.getElementById('create-todo-form').classList = defaultProject.id;
 
 const btnAddProject = document.getElementById('btn-add-project');
 const inputProjectName = document.getElementById('new-project-input');
-btnAddProject.onclick = function() {
+btnAddProject.onclick = () => {
   if (inputProjectName.checkValidity()) {
     const addedProject = allProjects.addProject(inputProjectName.value);
     projectView.appendProject(mainProjectsDiv, addedProject);
@@ -31,8 +31,8 @@ btnAddProject.onclick = function() {
 };
 
 const btnAddTodo = document.getElementById('create-todo-btn');
-btnAddTodo.onclick = function() {
-  const projectId = this.parentElement.className;
+btnAddTodo.onclick = (event) => {
+  const projectId = parseInt(event.currentTarget.parentElement.className, 0);
   const ipts = document.querySelectorAll(
     '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
   );

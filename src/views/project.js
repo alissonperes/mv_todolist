@@ -5,7 +5,7 @@ function appendProject(node, project) {
   anchorProject.appendChild(document.createTextNode(project.name));
   anchorProject.setAttribute('id', project.id);
   anchorProject.setAttribute('class', 'list-group-item list-group-item-action');
-  anchorProject.onclick = function() {
+  anchorProject.onclick = () => {
     const todoCont = document.getElementById('todos-div');
     renderTodos(todoCont, project.todos);
     document.getElementById('create-todo-form').classList = project.id;

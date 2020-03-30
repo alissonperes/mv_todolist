@@ -84,42 +84,42 @@ function todoCreator(todo) {
   mainCardDiv.appendChild(cardBody);
 
   editButton.onclick = (e) => {
-    if (e.target.innerText == 'Edit') {
+    if (e.target.innerText === 'Edit') {
       e.target.innerText = 'Save';
 
       ulDiv.innerHTML = `<form id="edit-todo-form">
   <div class="form-group">
   <label>Name</label>
   <input type="text" value="${
-    todo.name
-  }" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  todo.name
+}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div class="form-group">
   <label>Description</label>
   <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">${
-    todo.description
-  }</textarea>
+  todo.description
+}</textarea>
   </div>
   <div class="form-group">
   <label>Due date</label>
   <input type="date" value="${
-    todo.dueDate
-  }" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  todo.dueDate
+}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div class="form-group">
   <select class="custom-select" required="">
   <option value="Low" ${
-    todo.priority == 'Low' ? 'selected = selected' : ''
-  }>Low</option>
+  todo.priority === 'Low' ? 'selected = selected' : ''
+}>Low</option>
   <option value="Medium" ${
-    todo.priority == 'Medium' ? 'selected = selected' : ''
-  }>Medium</option>
+  todo.priority === 'Medium' ? 'selected = selected' : ''
+}>Medium</option>
   <option value="High" ${
-    todo.priority == 'High' ? 'selected = selected' : ''
-  }>High</option>
+  todo.priority === 'High' ? 'selected = selected' : ''
+}>High</option>
   <option value="Urgent" ${
-    todo.priority == 'Urgent' ? 'selected = selected' : ''
-  }>Urgent</option>
+  todo.priority === 'Urgent' ? 'selected = selected' : ''
+}>Urgent</option>
   </select>
   <div class="invalid-feedback">Example invalid custom select feedback</div>
   </div>
@@ -128,13 +128,13 @@ function todoCreator(todo) {
       `;
     } else {
       const ipts = document.querySelectorAll(
-        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select'
+        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
       );
       const values = Array.from(ipts).map((x) => x.value);
       const editedTodo = new ProjectController().editTodo(
         todo.parentId,
         todo.id,
-        ...values
+        ...values,
       );
       const removeTodo = document.getElementById(todo.id);
       removeTodo.parentElement.removeChild(removeTodo);
@@ -145,7 +145,7 @@ function todoCreator(todo) {
     }
   };
 
-  deleteButton.onclick = function() {
+  deleteButton.onclick = () => {
     new ProjectController().removeTodo(todo.parentId, todo.id);
     mainCardDiv.parentElement.removeChild(mainCardDiv);
   };
