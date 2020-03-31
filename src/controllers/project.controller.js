@@ -2,9 +2,11 @@ import ProjectModel from '../models/project';
 
 class ProjectController {
   constructor() {
-    this.projects = JSON.parse(localStorage.getItem('projects')) || [
-      new ProjectModel('Default'),
-    ];
+    localStorage.setItem(
+      'projects',
+      JSON.stringify([new ProjectModel('Default')]),
+    );
+    this.projects = JSON.parse(localStorage.getItem('projects'));
   }
 
   setStorage() {
