@@ -131,7 +131,7 @@ function todoCreator(todo) {
         '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
       );
       const values = Array.from(ipts).map((x) => x.value);
-      const editedTodo = new ApplicationController().editTodo(
+      const editedTodo = new ApplicationController().todos.editTodo(
         todo.parentId,
         todo.id,
         ...values,
@@ -146,7 +146,7 @@ function todoCreator(todo) {
   };
 
   deleteButton.onclick = () => {
-    new ApplicationController().removeTodo(todo.parentId, todo.id);
+    new ApplicationController().todos.removeTodo(todo.parentId, todo.id);
     mainCardDiv.parentElement.removeChild(mainCardDiv);
   };
 
