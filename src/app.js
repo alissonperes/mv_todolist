@@ -9,13 +9,12 @@ loadMainContent();
 
 const app = new ApplicationController();
 const defaultProject = app.allProjects.projects[0];
-app.todos.setStorage();
 
 const mainProjectsDiv = document.getElementById('projects-div');
 const mainTodosDiv = document.getElementById('todos-div');
 
 projectView.renderProjects(mainProjectsDiv, app.allProjects.projects);
-todoView.renderTodos(mainTodosDiv, defaultProject.todos);
+todoView.renderTodos(mainTodosDiv, app.todos.listTodos(defaultProject.id));
 document.getElementById('create-todo-form').classList = defaultProject.id;
 
 const btnAddProject = document.getElementById('btn-add-project');
@@ -43,6 +42,8 @@ btnAddTodo.onclick = (event) => {
     '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
   );
   const values = Array.from(ipts).map((x) => x.value);
+  console.log('values from app.js fro todo', values);
+  console.log('projectID ', projectId);
   const targetTodo = app.todos.addTodo(projectId, ...values);
   todoView.appendTodo(mainTodosDiv, targetTodo);
   clearAddTodoForm(ipts);
