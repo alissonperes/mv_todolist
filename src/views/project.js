@@ -17,6 +17,11 @@ function appendProject(node, project) {
 
 function renderProjects(node, projects) {
   projects.forEach((p) => appendProject(node, p));
+  node.appendChild(
+    document.createTextNode(
+      'Select a project here to create ToDos for that project'
+    )
+  );
 }
 
 export { renderProjects, appendProject };

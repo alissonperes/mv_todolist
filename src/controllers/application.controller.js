@@ -1,7 +1,7 @@
 import ProjectModel from '../models/project';
 import TodosModel from '../models/todo';
 
-class ProjectController {
+class ApplicationController {
   constructor() {
     this.projects = JSON.parse(localStorage.getItem('projects')) || [new ProjectModel('Default')];
   }
@@ -52,4 +52,4 @@ class ProjectController {
   }
 }
 
-export default ProjectController;
+export default ApplicationController;

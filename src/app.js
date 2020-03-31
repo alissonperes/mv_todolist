@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as projectView from './views/project';
 import * as todoView from './views/todo';
 import loadMainContent from './views/index';
-import ProjectController from './controllers/project.controller';
+import ProjectController from './controllers/application.controller';
 
 loadMainContent();
 

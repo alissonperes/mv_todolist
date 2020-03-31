@@ -23,6 +23,7 @@ const loadMainContent = () => {
           <button type="button" class="btn btn-primary" id="btn-add-project">Create</button>
         </div>
         <!-- Projects View renders the anchors <a> -->
+
       </div>
       <div class="col-md-8 col-sm-12 d-flex-column mt-3">
         <div class="row justify-content-center mb-3">
