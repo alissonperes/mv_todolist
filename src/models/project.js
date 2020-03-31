@@ -3,6 +3,7 @@ class ProjectModel {
     this.name = name;
     this.todos = [];
     this.id = new Date().getTime();
+    return this;
   }
 
   getTodos() {
