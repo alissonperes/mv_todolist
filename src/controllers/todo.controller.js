@@ -15,7 +15,7 @@ class TodoController {
       description,
       dueDate,
       priority,
-      projectId
+      projectId,
     );
     this.projects.find((p) => p.id === projectId).todos.push(todo);
     this.setStorage();

@@ -31,6 +31,7 @@ btnAddProject.onclick = () => {
 
 const clearAddTodoForm = (formInputs) => {
   formInputs.forEach((x) => {
+    // eslint-disable-next-line no-param-reassign
     x.value = '';
   });
 };
@@ -39,7 +40,7 @@ const btnAddTodo = document.getElementById('create-todo-btn');
 btnAddTodo.onclick = (event) => {
   const projectId = parseInt(event.currentTarget.parentElement.className, 0);
   const ipts = document.querySelectorAll(
-    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select'
+    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
   );
   const values = Array.from(ipts).map((x) => x.value);
   const targetTodo = app.todos.addTodo(projectId, ...values);
@@ -50,7 +51,7 @@ btnAddTodo.onclick = (event) => {
 const dismissForm = document.getElementById('dismiss-changes');
 dismissForm.onclick = () => {
   const ipts = document.querySelectorAll(
-    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select'
+    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
   );
   clearAddTodoForm(ipts);
 };
