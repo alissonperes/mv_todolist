@@ -25,15 +25,16 @@ const loadMainContent = () => {
         <!-- Projects View renders the anchors <a> -->
       </div>
       <div class="col-md-8 col-sm-12 d-flex-column mt-3">
-        <div class="row justify-content-end mb-3">
+        <div class="row justify-content-center mb-3">
           <!-- Button trigger modal -->
           <button
+          id="trigger-modal"
             type="button"
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#exampleModal"
           >
-            Create new todo
+            Create todo for Default
           </button>
           <!-- Modal -->
           <div
@@ -101,7 +102,7 @@ const loadMainContent = () => {
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  <button id="dismiss-changes" type="button" class="btn btn-secondary" data-dismiss="modal">
                     Dismiss changes
                   </button>
                 </div>
