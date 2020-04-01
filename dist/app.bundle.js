@@ -185,7 +185,42 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n\n//# sourceURL=webpack:///./src/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.js\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ \"./src/todos.js\");\n/* harmony import */ var _renderIndex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./renderIndex */ \"./src/renderIndex.js\");\n/* harmony import */ var _renderIndex__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_renderIndex__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _renderProjects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderProjects */ \"./src/renderProjects.js\");\n\n\n\n\n\n\n\nconst get = () => JSON.parse(localStorage.getItem('projects'));\nconst getProject = (id) => get().filter((x) => x.id === id)[0];\nconst set = (value) => {\n  localStorage.setItem('projects', JSON.stringify(value));\n  return get();\n};\n\nconst allProjects = get() || set([Object(_todos__WEBPACK_IMPORTED_MODULE_2__[\"default\"])('Default')]);\n\n_renderProjects__WEBPACK_IMPORTED_MODULE_4__[\"default\"].renderProjects(allProjects);\n\nconst addProject = (name) => {\n  const newProject = Object(_todos__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(name);\n  allProjects.push(newProject);\n  set(allProjects);\n  _renderProjects__WEBPACK_IMPORTED_MODULE_4__[\"default\"].renderProjects(allProjects);\n};\n\nconst addProjectBtn = document.getElementById('btn-add-project');\naddProjectBtn.onclick = () => {\n  const inputAddPoject = document.getElementById('add-project-btn');\n  if (inputAddPoject.value !== '') {\n    inputAddPoject.setAttribute('placeholder', 'New project name');\n    addProject(inputAddPoject.value);\n    inputAddPoject.focus();\n    inputAddPoject.value = '';\n  } else {\n    inputAddPoject.focus();\n    inputAddPoject.setAttribute('placeholder', 'Name is required');\n  }\n};\n\n\n//# sourceURL=webpack:///./src/app.js?");
+
+/***/ }),
+
+/***/ "./src/renderIndex.js":
+/*!****************************!*\
+  !*** ./src/renderIndex.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const app = document.getElementById('app');\nconst initialHtml = `<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-5 col-md-6 col-sm-12 bg-dark\">\n      <div class=\"input-group mb-3\">\n        <input\n          class=\"form-control w-100\"\n          id=\"add-project-btn\"\n          type=\"text\"\n          placeholder=\"New project name\"\n          required=\"true\"\n        />\n        <div class=\"input-group-append\">\n          <button class=\"btn btn-outline-secondary\" id=\"btn-add-project\" type=\"button\">\n            Add Project\n          </button>\n        </div>\n      </div>\n      <div id=\"projects-list\"><ul class=\"list-group\"></ul></div>\n    </div>\n    <div class=\"col\">\n      <div class=\"input-group mb-3\">\n        <input\n          class=\"form-control w-100\"\n          id=\"add-todo-btn\"\n          type=\"text\"\n          placeholder=\"New todo name\"\n          required=\"true\"\n        />\n        <div class=\"input-group-append\">\n          <button class=\"btn btn-outline-secondary\" id=\"btn-add-todo\" type=\"button\">\n            Add todo\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>`;\napp.innerHTML = initialHtml;\n\n\n//# sourceURL=webpack:///./src/renderIndex.js?");
+
+/***/ }),
+
+/***/ "./src/renderProjects.js":
+/*!*******************************!*\
+  !*** ./src/renderProjects.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./todos */ \"./src/todos.js\");\n\n\nconst get = () => JSON.parse(localStorage.getItem('projects'));\nconst getProject = (id) => get().filter((x) => x.id === id)[0];\n\nfunction renderProjects(projects) {\n  const projectsList = document.querySelector('#projects-list ul.list-group');\n  projectsList.innerHTML = '';\n  projects.forEach((item) => {\n    const currentProject = Object(_todos__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(item.name, item.id, item.todos);\n    const newItem = document.createElement('li');\n    newItem.className = 'list-group-item';\n    newItem.appendChild(document.createTextNode(item.name));\n    newItem.onclick = () => {\n      console.log(getProject(currentProject.id));\n      // console.log(currentProject);\n    };\n    projectsList.appendChild(newItem);\n  });\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({ renderProjects });\n\n\n//# sourceURL=webpack:///./src/renderProjects.js?");
+
+/***/ }),
+
+/***/ "./src/todos.js":
+/*!**********************!*\
+  !*** ./src/todos.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst Todos = (name, desc, prio, dueDate) => {\n  const todo = {\n    name,\n    desc,\n    prio,\n    dueDate,\n    id: new Date().getTime(),\n  };\n\n  return todo;\n};\n\nconst Project = (name, id = new Date().getTime(), todos = []) => ({\n  id,\n  name,\n  todos,\n\n  addTodo(todoName, desc, prio, dueDate) {\n    this.todos.push(Todos(todoName, desc, prio, dueDate));\n  },\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Project);\n\n\n//# sourceURL=webpack:///./src/todos.js?");
 
 /***/ })
 
