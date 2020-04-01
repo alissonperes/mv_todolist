@@ -21,7 +21,9 @@ class TodoController {
     );
     // eslint-disable-next-line eqeqeq
     console.log('this.projects before ', this.projects);
-    this.projects.find((p) => p.id == projectId).todos.push(todo);
+    JSON.parse(localStorage.getItem('projects'))
+      .find((p) => p.id == projectId)
+      .todos.push(todo);
     console.log('this.projects after ', this.projects);
     // save projects to local storage here
     return todo;
