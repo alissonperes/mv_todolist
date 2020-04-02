@@ -23,7 +23,7 @@ This project builds a browser based ToDo list. You can check the complete descri
 To get started with the app, clone the repo and you are set to go.
 
 ## Live Version
-  - [Live version in Git Hack](https://raw.githack.com/alissonperes/mv_todolist/list-new-approach/dist/index.html)
+  - [Live version in Git Hack](https://raw.githack.com/alissonperes/mv_todolist/development/dist/index.html)
 
 ## Aknowldgments
 
