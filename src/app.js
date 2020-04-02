@@ -10,7 +10,7 @@ loadMainContent();
 const app = new ApplicationController();
 const defaultProject = app.allProjects.projects[0];
 
-const mainProjectsDiv = document.getElementById('projects-div');
+const mainProjectsDiv = document.getElementById('projects-list');
 const mainTodosDiv = document.getElementById('todos-div');
 
 projectView.renderProjects(mainProjectsDiv, app.allProjects.projects);
@@ -23,6 +23,8 @@ btnAddProject.onclick = () => {
   if (inputProjectName.checkValidity()) {
     const addedProject = app.allProjects.addProject(inputProjectName.value);
     projectView.appendProject(mainProjectsDiv, addedProject);
+  } else {
+    inputProjectName.reportValidity();
   }
   inputProjectName.value = '';
   inputProjectName.focus();
@@ -35,19 +37,25 @@ const clearAddTodoForm = (formInputs) => {
   });
 };
 
+const dismissForm = document.getElementById('dismiss-changes');
 const btnAddTodo = document.getElementById('create-todo-btn');
 btnAddTodo.onclick = (event) => {
-  const projectId = parseInt(event.currentTarget.parentElement.className, 0);
-  const ipts = document.querySelectorAll(
-    '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
-  );
-  const values = Array.from(ipts).map((x) => x.value);
-  const targetTodo = app.todos.addTodo(projectId, ...values);
-  todoView.appendTodo(mainTodosDiv, targetTodo);
-  clearAddTodoForm(ipts);
+  const todoForm = document.getElementById('create-todo-form');
+  if (todoForm.checkValidity()) {
+    const projectId = parseInt(event.currentTarget.parentElement.className, 0);
+    const ipts = document.querySelectorAll(
+      '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',
+    );
+    const values = Array.from(ipts).map((x) => x.value);
+    const targetTodo = app.todos.addTodo(projectId, ...values);
+    todoView.appendTodo(mainTodosDiv, targetTodo);
+    dismissForm.click();
+    clearAddTodoForm(ipts);
+  } else {
+    todoForm.reportValidity();
+  }
 };
 
-const dismissForm = document.getElementById('dismiss-changes');
 dismissForm.onclick = () => {
   const ipts = document.querySelectorAll(
     '.modal-body form .form-group input, .modal-body form .form-group textarea, .modal-body form .form-group select',

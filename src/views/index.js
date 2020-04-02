@@ -23,7 +23,8 @@ const loadMainContent = () => {
           <button type="button" class="btn btn-primary" id="btn-add-project">Create</button>
         </div>
         <!-- Projects View renders the anchors <a> -->
-
+        <div id="projects-list" class="list-group">
+        </div>
       </div>
       <div class="col-md-8 col-sm-12 d-flex-column mt-3">
         <div class="row justify-content-center mb-3">
@@ -61,8 +62,8 @@ const loadMainContent = () => {
                       <input
                         type="text"
                         class="form-control"
-                        id="exampleInputEmail1"
                         aria-describedby="emailHelp"
+                        required
                       />
                     </div>
                     <div class="form-group">
@@ -70,8 +71,8 @@ const loadMainContent = () => {
                       <textarea
                         type=""
                         class="form-control"
-                        id="exampleInputEmail1"
                         aria-describedby="emailHelp"
+                        required
                       ></textarea>
                     </div>
                     <div class="form-group">
@@ -79,8 +80,8 @@ const loadMainContent = () => {
                       <input
                         type="date"
                         class="form-control"
-                        id="exampleInputEmail1"
                         aria-describedby="emailHelp"
+                        required
                       />
                     </div>
                     <div class="form-group">
@@ -96,7 +97,6 @@ const loadMainContent = () => {
                       type="button"
                       class="btn btn-primary"
                       id="create-todo-btn"
-                      data-dismiss="modal"
                     >
                       Create
                     </button>

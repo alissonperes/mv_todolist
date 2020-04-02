@@ -90,36 +90,22 @@ function todoCreator(todo) {
       ulDiv.innerHTML = `<form id="edit-todo-form">
   <div class="form-group">
   <label>Name</label>
-  <input type="text" value="${
-  todo.name
-}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <input type="text" value="${todo.name}" class="form-control" required>
   </div>
   <div class="form-group">
   <label>Description</label>
-  <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">${
-  todo.description
-}</textarea>
+  <textarea class="form-control" required>${todo.description}</textarea>
   </div>
   <div class="form-group">
   <label>Due date</label>
-  <input type="date" value="${
-  todo.dueDate
-}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <input type="date" value="${todo.dueDate}" class="form-control" required>
   </div>
   <div class="form-group">
   <select class="custom-select" required="">
-  <option value="Low" ${
-  todo.priority === 'Low' ? 'selected = selected' : ''
-}>Low</option>
-  <option value="Medium" ${
-  todo.priority === 'Medium' ? 'selected = selected' : ''
-}>Medium</option>
-  <option value="High" ${
-  todo.priority === 'High' ? 'selected = selected' : ''
-}>High</option>
-  <option value="Urgent" ${
-  todo.priority === 'Urgent' ? 'selected = selected' : ''
-}>Urgent</option>
+  <option value="Low" ${todo.priority === 'Low' ? 'selected = selected' : ''}>Low</option>
+  <option value="Medium" ${todo.priority === 'Medium' ? 'selected = selected' : ''}>Medium</option>
+  <option value="High" ${todo.priority === 'High' ? 'selected = selected' : ''}>High</option>
+  <option value="Urgent" ${todo.priority === 'Urgent' ? 'selected = selected' : ''}>Urgent</option>
   </select>
   <div class="invalid-feedback">Example invalid custom select feedback</div>
   </div>
@@ -127,21 +113,25 @@ function todoCreator(todo) {
 </form>
       `;
     } else {
-      const ipts = document.querySelectorAll(
-        '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
-      );
-      const values = Array.from(ipts).map((x) => x.value);
-      const editedTodo = new ApplicationController().todos.editTodo(
-        todo.parentId,
-        todo.id,
-        ...values,
-      );
-      const removeTodo = document.getElementById(todo.id);
-      removeTodo.parentElement.removeChild(removeTodo);
-      // eslint-disable-next-line
-      appendTodo(document.getElementById('todos-div'), editedTodo);
-
-      e.target.innerText = 'Edit';
+      const editTodoForm = document.getElementById('edit-todo-form');
+      if (editTodoForm.checkValidity()) {
+        const ipts = document.querySelectorAll(
+          '.card-ul form .form-group input, .card-ul form .form-group textarea, .card-ul form .form-group select',
+        );
+        const values = Array.from(ipts).map((x) => x.value);
+        const editedTodo = new ApplicationController().todos.editTodo(
+          todo.parentId,
+          todo.id,
+          ...values,
+        );
+        const removeTodo = document.getElementById(todo.id);
+        removeTodo.parentElement.removeChild(removeTodo);
+        // eslint-disable-next-line
+        appendTodo(document.getElementById('todos-div'), editedTodo);
+        e.target.innerText = 'Edit';
+      } else {
+        editTodoForm.reportValidity();
+      }
     }
   };
 
