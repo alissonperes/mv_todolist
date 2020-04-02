@@ -21,16 +21,13 @@ function appendProject(node, project, active) {
 }
 
 function renderProjects(node, projects) {
-  const listGroup = document.createElement('div');
-  listGroup.className = 'list-group';
   node.appendChild(
     document.createTextNode('Select a project here to create ToDos for that project'),
   );
   projects.forEach((p, i) => {
     const active = i === 0;
-    appendProject(listGroup, p, active);
+    appendProject(node, p, active);
   });
-  node.appendChild(listGroup);
 }
 
 export { renderProjects, appendProject };
